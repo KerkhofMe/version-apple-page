@@ -84,6 +84,9 @@
     .beta-head h2 { margin:0; font-size:24px; letter-spacing:-.055em; }
     .beta-head p { margin:7px 0 0; color:var(--muted); font-size:12px; }
     .slider-controls { display:flex; gap:8px; }
+    .beta-actions { display:flex; align-items:center; gap:14px; }
+    .beta-dismiss, .beta-restore button { border:0; padding:0; background:transparent; color:var(--muted); font-size:12px; }
+    .beta-dismiss:hover, .beta-restore button:hover { color:var(--ink); text-decoration:underline; }
     .slider-button { display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid var(--line); border-radius:50%; color:var(--ink); background:#fff; font-size:19px; line-height:1; transition:background .2s, color .2s, border-color .2s; }
     .slider-button:hover:not(:disabled) { background:var(--ink); color:#fff; border-color:var(--ink); }
     .slider-button:disabled { cursor:not-allowed; color:#b5b5bb; background:#fafafa; }
@@ -102,6 +105,7 @@
     .slider-progress { display:flex; gap:6px; margin:17px 0 0; }
     .slider-progress i { width:22px; height:3px; border-radius:99px; background:#d9d9df; transition:background .2s, width .2s; }
     .slider-progress i.active { width:36px; background:var(--purple); }
+    .beta-restore { display:flex; align-items:center; justify-content:space-between; margin-top:54px; padding:17px 20px; border:1px solid var(--line); border-radius:18px; color:var(--muted); font-size:12px; }
     .drawer-backdrop { position:fixed; inset:0; background:rgba(20,20,24,.28); opacity:0; pointer-events:none; transition:opacity .25s; z-index:10; }
     .drawer-backdrop.open { opacity:1; pointer-events:auto; }
     .drawer { position:fixed; z-index:11; top:16px; right:16px; bottom:16px; width:min(470px, calc(100vw - 32px)); padding:30px; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:24px; box-shadow:0 25px 70px rgba(0,0,0,.2); transform:translateX(calc(100% + 32px)); transition:transform .35s cubic-bezier(.2,.8,.2,1); overflow:auto; }
@@ -162,10 +166,12 @@
       <section class="beta-section" aria-labelledby="betaHeading">
         <div class="beta-head">
           <div><h2 id="betaHeading">In beta</h2><p>Preview the next releases from Apple.</p></div>
-          <div class="slider-controls" aria-label="Beta release slider controls"><button class="slider-button" id="betaPrevious" type="button" aria-label="Previous beta releases">←</button><button class="slider-button" id="betaNext" type="button" aria-label="Next beta releases">→</button></div>
+          <div class="beta-actions"><button class="beta-dismiss" id="betaDismiss" type="button">Hide betas</button><div class="slider-controls" aria-label="Beta release slider controls"><button class="slider-button" id="betaPrevious" type="button" aria-label="Previous beta releases">←</button><button class="slider-button" id="betaNext" type="button" aria-label="Next beta releases">→</button></div></div>
         </div>
         <div class="beta-slider" role="region" aria-label="Apple beta releases">
           <div class="beta-track" id="betaTrack" tabindex="0">
+            <article class="beta-card" data-name="iOS 27 Developer Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Dev beta</span></div><div class="beta-version">iOS 27</div><p>Developer beta · Next major release</p></article>
+            <article class="beta-card" data-name="iOS 27 Public Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Public beta</span></div><div class="beta-version">iOS 27</div><p>Public beta · Next major release</p></article>
             <article class="beta-card" data-name="iOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">iOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
             <article class="beta-card" data-name="iPadOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iPad</span> iPad</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">iPadOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
             <article class="beta-card" data-name="macOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">⌘</span> Mac</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">Tahoe 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
@@ -173,8 +179,9 @@
             <article class="beta-card" data-name="visionOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">◉</span> Vision Pro</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">visionOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
           </div>
         </div>
-        <div class="slider-progress" id="betaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i></div>
+        <div class="slider-progress" id="betaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div>
       </section>
+      <div class="beta-restore" id="betaRestore" hidden><span>Beta releases are hidden.</span><button id="betaRestoreButton" type="button">Show betas</button></div>
 
       <section id="all-systems" aria-label="All Apple systems">
         <div class="section-head"><h2>All systems</h2><p>Stable releases · Betas excluded.</p></div>
@@ -223,6 +230,8 @@
       HomePod: { title: 'HomePod software 26.5', date: 'Released 11 May 2026', items: ['Performance improvements for HomePod and HomePod mini.', 'Bug fixes and stability improvements.'], source: 'https://support.apple.com/en-us/108045' },
       Safari: { title: 'Safari 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for Safari on macOS Sonoma and macOS Sequoia.', 'Improves protection when processing web content.'], source: 'https://support.apple.com/100100' },
       Xcode: { title: 'Xcode 26.6', date: 'Released 25 Jun 2026', items: ['Latest stable Xcode release for Apple platform development.', 'Includes updated SDKs, tools, and developer workflow improvements.', 'Supports building and testing for the latest Apple operating systems.'], source: 'https://developer.apple.com/news/releases/?id=06252026a' },
+      'iOS 27 Developer Beta': { title: 'iOS 27 developer beta', date: 'Next major release', items: ['Pre-release software for registered developers.', 'Includes early iOS 27 features and platform changes.', 'Install only on an iPhone dedicated to testing.'], source: 'https://developer.apple.com/download/' },
+      'iOS 27 Public Beta': { title: 'iOS 27 public beta', date: 'Next major release', items: ['Pre-release software available through Apple Beta Software Program.', 'Includes early iOS 27 features and platform changes.', 'Back up your iPhone before installing beta software.'], source: 'https://beta.apple.com/' },
       'iOS Beta': { title: 'iOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes the latest iPhone platform changes and fixes.', 'Install only on devices dedicated to testing.'], source: 'https://developer.apple.com/download/' },
       'iPadOS Beta': { title: 'iPadOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes the latest iPad platform changes and fixes.', 'Install only on devices dedicated to testing.'], source: 'https://developer.apple.com/download/' },
       'macOS Beta': { title: 'macOS Tahoe 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Brings the newest Mac platform improvements for testing.', 'Back up your Mac before installing beta software.'], source: 'https://developer.apple.com/download/' },
@@ -263,6 +272,10 @@
       card.addEventListener('click', () => openChangelog(card));
       card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openChangelog(card); } });
     });
+    const betaSection = document.querySelector('.beta-section');
+    const betaRestore = document.querySelector('#betaRestore');
+    const betaDismiss = document.querySelector('#betaDismiss');
+    const betaRestoreButton = document.querySelector('#betaRestoreButton');
     const betaTrack = document.querySelector('#betaTrack');
     const betaCards = [...document.querySelectorAll('.beta-card')];
     const betaPrevious = document.querySelector('#betaPrevious');
@@ -276,6 +289,8 @@
       progressSteps.forEach((step, index) => step.classList.toggle('active', index === page));
     }
     function moveBetaSlider(direction) { betaTrack.scrollBy({ left: direction * Math.max(betaTrack.clientWidth * .86, 280), behavior: 'smooth' }); }
+    betaDismiss.addEventListener('click', () => { betaSection.hidden = true; betaRestore.hidden = false; betaRestoreButton.focus(); });
+    betaRestoreButton.addEventListener('click', () => { betaSection.hidden = false; betaRestore.hidden = true; updateBetaSlider(); betaDismiss.focus(); });
     betaPrevious.addEventListener('click', () => moveBetaSlider(-1));
     betaNext.addEventListener('click', () => moveBetaSlider(1));
     betaTrack.addEventListener('scroll', updateBetaSlider, { passive: true });
