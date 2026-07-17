@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#f5f5f7" />
+  <title>Version — Apple software, at a glance</title>
+  <style>
+    :root {
+      --ink: #17171a;
+      --muted: #6e6e73;
+      --soft: #f5f5f7;
+      --line: #e4e4e8;
+      --blue: #0071e3;
+      --green: #28b47a;
+      --purple: #7a5af8;
+      --orange: #ff9c42;
+      --shadow: 0 20px 45px rgba(28, 28, 42, .08);
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    .page { max-width: 1320px; margin: 0 auto; padding: 0 44px 80px; }
+    .topbar { display:flex; height: 72px; align-items:center; justify-content:space-between; border-bottom: 1px solid var(--line); }
+    .brand { display:flex; align-items:center; gap: 9px; font-weight: 650; letter-spacing:-.03em; font-size: 17px; }
+    .brand-mark { width: 21px; height: 24px; display:inline-block; background:var(--ink); border-radius: 46% 46% 47% 47% / 55% 55% 44% 44%; position:relative; transform:scale(.7); }
+    .brand-mark:before { content:""; position:absolute; width: 9px; height: 7px; background:var(--ink); transform:rotate(-27deg); border-radius: 90% 0 90% 0; right: 1px; top:-5px; }
+    .brand-mark:after { content:""; position:absolute; width: 7px; height: 14px; background:#fff; left: 1px; top: 1px; border-radius: 50%; opacity:.28; transform:rotate(18deg); }
+    .nav { display:flex; align-items:center; gap: 30px; font-size: 13px; color:var(--muted); }
+    .nav a { text-decoration:none; color:inherit; transition:color .2s; }
+    .nav a:hover, .nav a.active { color:var(--ink); }
+    .nav .active { font-weight:600; }
+    .status { display:flex; align-items:center; gap: 8px; font-size: 12px; color:var(--muted); }
+    .pulse { width:7px; height:7px; background:var(--green); border-radius:50%; box-shadow:0 0 0 4px rgba(40,180,122,.12); }
+    .hero { padding: 82px 0 56px; max-width: 780px; }
+    .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:.14em; font-size:11px; font-weight:700; margin-bottom:20px; }
+    h1 { font-size: clamp(48px, 7vw, 86px); line-height:.96; letter-spacing:-.075em; margin:0 0 25px; font-weight:700; }
+    h1 span { color:#a0a0a7; }
+    .intro { max-width: 580px; font-size: 19px; line-height:1.48; color:var(--muted); letter-spacing:-.02em; margin:0; }
+    .toolbar { display:flex; justify-content:space-between; align-items:center; gap:20px; margin-bottom: 25px; }
+    .tabs { display:flex; gap: 7px; flex-wrap:wrap; }
+    .tab { border: 1px solid var(--line); color:var(--muted); background:#fff; padding:9px 15px; border-radius:999px; font-size:12px; transition:all .2s; }
+    .tab:hover { border-color:#b8b8bf; color:var(--ink); }
+    .tab.active { color:#fff; background:var(--ink); border-color:var(--ink); }
+    .search { position:relative; width:215px; }
+    .search svg { position:absolute; left:12px; top:10px; width:15px; color:#8d8d94; }
+    .search input { width:100%; padding:9px 12px 9px 35px; border:1px solid var(--line); border-radius:999px; outline:none; color:var(--ink); font-size:12px; background:#fbfbfc; }
+    .search input:focus { border-color:#9999a2; box-shadow:0 0 0 3px rgba(0,113,227,.08); }
+    .feature-grid { display:grid; grid-template-columns: 1.62fr 1fr 1fr; gap:14px; margin-bottom: 14px; }
+    .card { border:1px solid var(--line); border-radius:20px; padding:25px; background:#fff; min-height:214px; position:relative; overflow:hidden; transition:transform .25s, box-shadow .25s, border-color .25s; }
+    .card:hover { transform:translateY(-3px); box-shadow:var(--shadow); border-color:#d0d0d5; }
+    .card, .system-card { cursor:pointer; }
+    .card.dark { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .card.dark .kicker, .card.dark .meta, .card.dark .release { color:#a4a4aa; }
+    .card.dark:after { content:""; position:absolute; right:-35px; bottom:-58px; height:220px; width:220px; border-radius:50%; border:1px solid rgba(255,255,255,.1); box-shadow:0 0 0 25px rgba(255,255,255,.025), 0 0 0 51px rgba(255,255,255,.025), 0 0 0 77px rgba(255,255,255,.025); }
+    .card.blue { background:#eaf4ff; border-color:#eaf4ff; }
+    .card.blue:after { content:""; width:115px; height:115px; border-radius:50%; background:rgba(0,113,227,.1); position:absolute; bottom:-38px; right:18px; }
+    .card.blue:before { content:""; width:36px; height:36px; border-radius:50%; border:1px solid rgba(0,113,227,.23); position:absolute; bottom:2px; right:59px; z-index:1; }
+    .kicker { color:var(--muted); font-size:12px; display:flex; gap:7px; align-items:center; margin-bottom:34px; }
+    .os-icon { width:24px; height:24px; display:grid; place-items:center; border-radius:7px; background:var(--soft); color:var(--ink); font-weight:700; font-size:11px; }
+    .dark .os-icon { background:#303035; color:#fff; }
+    .blue .os-icon { background:#fff; color:var(--blue); }
+    .version { font-size:36px; line-height:1; font-weight:650; letter-spacing:-.065em; margin-bottom:10px; }
+    .release { font-size:12px; color:var(--muted); }
+    .meta { position:absolute; right:25px; top:28px; color:var(--muted); font-size:11px; }
+    .new { color:var(--green); font-weight:650; }
+    .section-head { display:flex; justify-content:space-between; align-items:flex-end; padding:51px 0 20px; }
+    .section-head h2 { margin:0; font-size:24px; letter-spacing:-.055em; }
+    .section-head p { margin:0; color:var(--muted); font-size:12px; }
+    .system-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap:14px; }
+    .system-card { border:1px solid var(--line); border-radius:18px; padding:20px; display:flex; flex-direction:column; gap:18px; min-height:179px; transition:transform .2s, box-shadow .2s; }
+    .system-card:hover { transform:translateY(-3px); box-shadow:var(--shadow); }
+    .system-top { display:flex; justify-content:space-between; align-items:center; }
+    .system-name { display:flex; gap:11px; align-items:center; font-weight:600; font-size:14px; letter-spacing:-.02em; }
+    .system-name .os-icon { border-radius:8px; width:30px; height:30px; }
+    .chip { color:#73737a; font-size:10px; background:var(--soft); border-radius:999px; padding:5px 8px; }
+    .system-version { font-size:29px; letter-spacing:-.06em; font-weight:650; }
+    .system-bottom { display:flex; justify-content:space-between; align-items:center; margin-top:auto; color:var(--muted); font-size:11px; }
+    .arrow { display:grid; place-items:center; width:24px; height:24px; border:1px solid var(--line); border-radius:50%; color:var(--ink); font-size:14px; }
+    .empty { display:none; padding:40px; text-align:center; color:var(--muted); border:1px dashed var(--line); border-radius:18px; }
+    .drawer-backdrop { position:fixed; inset:0; background:rgba(20,20,24,.28); opacity:0; pointer-events:none; transition:opacity .25s; z-index:10; }
+    .drawer-backdrop.open { opacity:1; pointer-events:auto; }
+    .drawer { position:fixed; z-index:11; top:16px; right:16px; bottom:16px; width:min(470px, calc(100vw - 32px)); padding:30px; background:#fff; border:1px solid rgba(0,0,0,.08); border-radius:24px; box-shadow:0 25px 70px rgba(0,0,0,.2); transform:translateX(calc(100% + 32px)); transition:transform .35s cubic-bezier(.2,.8,.2,1); overflow:auto; }
+    .drawer.open { transform:translateX(0); }
+    .drawer-close { display:grid; place-items:center; position:absolute; top:20px; right:20px; width:32px; height:32px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--muted); font-size:20px; line-height:1; }
+    .drawer-kicker { display:flex; align-items:center; gap:9px; color:var(--blue); text-transform:uppercase; letter-spacing:.12em; font-size:10px; font-weight:700; }
+    .drawer h2 { margin:20px 40px 8px 0; font-size:40px; line-height:1; letter-spacing:-.065em; }
+    .drawer-date { color:var(--muted); font-size:13px; margin-bottom:32px; }
+    .changelog-label { color:var(--muted); text-transform:uppercase; letter-spacing:.12em; font-size:10px; font-weight:700; margin-bottom:14px; }
+    .changelog-list { list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+    .changelog-list li { display:flex; gap:13px; padding:15px 0; border-top:1px solid var(--line); color:#45454a; font-size:14px; line-height:1.45; }
+    .changelog-list li:before { content:"+"; color:var(--green); font-size:17px; font-weight:600; line-height:1.1; }
+    .drawer-source { display:inline-flex; align-items:center; gap:6px; margin-top:30px; color:var(--blue); text-decoration:none; font-size:12px; font-weight:600; }
+    footer { margin-top:78px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:#9b9ba1; font-size:11px; }
+    footer a { color:inherit; text-decoration:none; }
+    @media(max-width:850px) { .page{padding:0 22px 55px}.nav{gap:15px}.nav a:nth-child(2){display:none}.feature-grid{grid-template-columns:1fr 1fr}.feature-grid .card:first-child{grid-column:span 2}.system-grid{grid-template-columns:1fr 1fr}.hero{padding:65px 0 45px} }
+    @media(max-width:560px) { .topbar{height:64px}.status{display:none}.nav{margin-left:auto}.toolbar{align-items:flex-start; flex-direction:column}.search{width:100%}.feature-grid,.system-grid{grid-template-columns:1fr}.feature-grid .card:first-child{grid-column:auto}.card{min-height:190px}.version{font-size:34px}.section-head{padding-top:40px;display:block}.section-head p{margin-top:8px}footer{display:block;line-height:1.8} }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand"><i class="brand-mark"></i><span>version</span></div>
+      <nav class="nav" aria-label="Main navigation"><a href="#latest" class="active">Latest</a><a href="#all-systems">All systems</a><a href="#about">About</a></nav>
+      <div class="status"><i class="pulse"></i> Updated 17 Jul 2026</div>
+    </header>
+
+    <main>
+      <section class="hero" id="about">
+        <div class="eyebrow">Apple software index · 01</div>
+        <h1>Every system.<br><span>One clear view.</span></h1>
+        <p class="intro">The latest release information for the software that powers your Apple devices — kept simple, current, and easy to scan.</p>
+      </section>
+
+      <section id="latest" aria-label="Latest releases">
+        <div class="toolbar">
+          <div class="tabs" role="tablist" aria-label="Filter systems">
+            <button class="tab active" data-filter="all">All</button><button class="tab" data-filter="mobile">Mobile</button><button class="tab" data-filter="desktop">Desktop</button><button class="tab" data-filter="other">Other</button>
+          </div>
+          <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="search" type="search" placeholder="Search systems…" aria-label="Search systems"></label>
+        </div>
+        <div class="feature-grid">
+          <article class="card dark" data-type="mobile" data-name="iOS">
+            <div class="kicker"><span class="os-icon">iOS</span> iPhone <span class="meta new">Latest</span></div>
+            <div class="version">iOS 26.5.2</div><div class="release">The newest generation of iPhone software</div>
+          </article>
+          <article class="card blue" data-type="desktop" data-name="macOS Tahoe">
+            <div class="kicker"><span class="os-icon">⌘</span> Mac <span class="meta new">Latest</span></div>
+            <div class="version">26.5.2</div><div class="release">macOS Tahoe · 29 Jun 2026</div>
+          </article>
+          <article class="card" data-type="mobile" data-name="iPadOS">
+            <div class="kicker"><span class="os-icon">iPad</span> iPad <span class="meta">26.5.2</span></div>
+            <div class="version">iPadOS 26.5.2</div><div class="release">Version 26.5.2 · 29 Jun 2026</div>
+          </article>
+        </div>
+      </section>
+
+      <section id="all-systems" aria-label="All Apple systems">
+        <div class="section-head"><h2>All systems</h2><p>Stable releases · Betas excluded.</p></div>
+        <div class="system-grid" id="systemGrid">
+          <article class="system-card" data-type="other" data-name="watchOS"><div class="system-top"><div class="system-name"><span class="os-icon">⌁</span> watchOS</div><span class="chip">Watch</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="tvOS"><div class="system-top"><div class="system-name"><span class="os-icon">TV</span> tvOS</div><span class="chip">TV</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="visionOS"><div class="system-top"><div class="system-name"><span class="os-icon">◉</span> visionOS</div><span class="chip">Vision Pro</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="HomePod"><div class="system-top"><div class="system-name"><span class="os-icon">♫</span> HomePod</div><span class="chip">Speaker</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="desktop" data-name="Safari"><div class="system-top"><div class="system-name"><span class="os-icon">◌</span> Safari</div><span class="chip">Browser</span></div><div class="system-version">26.5.2</div><div class="system-bottom"><span>29 Jun 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="Xcode"><div class="system-top"><div class="system-name"><span class="os-icon">✕</span> Xcode</div><span class="chip">Developer</span></div><div class="system-version">26.6</div><div class="system-bottom"><span>25 Jun 2026</span><span class="arrow">↗</span></div></article>
+        </div>
+        <div class="empty" id="empty">No systems match that search.</div>
+      </section>
+    </main>
+    <footer><span>Made for the curious.</span><span>Verified 17 Jul 2026 · <a href="https://support.apple.com/100100" target="_blank" rel="noreferrer">Apple security releases ↗</a></span></footer>
+  </div>
+  <div class="drawer-backdrop" id="drawerBackdrop"></div>
+  <aside class="drawer" id="changelogDrawer" aria-hidden="true" aria-labelledby="drawerTitle">
+    <button class="drawer-close" id="drawerClose" aria-label="Close changelog">×</button>
+    <div class="drawer-kicker"><span class="pulse"></span> Release notes</div>
+    <h2 id="drawerTitle">iOS 26.5.2</h2>
+    <div class="drawer-date" id="drawerDate">Released 29 Jun 2026</div>
+    <div class="changelog-label">What changed</div>
+    <ul class="changelog-list" id="changelogList"></ul>
+    <a class="drawer-source" id="drawerSource" href="https://support.apple.com/100100" target="_blank" rel="noreferrer">Read Apple's full notes ↗</a>
+  </aside>
+  <script>
+    const tabs = document.querySelectorAll('.tab');
+    const cards = [...document.querySelectorAll('[data-type]')];
+    const search = document.querySelector('#search');
+    const empty = document.querySelector('#empty');
+    const drawer = document.querySelector('#changelogDrawer');
+    const backdrop = document.querySelector('#drawerBackdrop');
+    const drawerTitle = document.querySelector('#drawerTitle');
+    const drawerDate = document.querySelector('#drawerDate');
+    const changelogList = document.querySelector('#changelogList');
+    const drawerSource = document.querySelector('#drawerSource');
+    let activeFilter = 'all';
+    const changelogs = {
+      iOS: { title: 'iOS 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for supported iPhone models.', 'Addresses an issue that could cause unexpected system termination.', 'Improves input sanitization and kernel memory protection.'], source: 'https://support.apple.com/en-us/127594' },
+      iPadOS: { title: 'iPadOS 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for supported iPad models.', 'Addresses an issue that could cause unexpected system termination.', 'Improves input sanitization and kernel memory protection.'], source: 'https://support.apple.com/en-us/127594' },
+      'macOS Tahoe': { title: 'macOS Tahoe 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for macOS Tahoe.', 'Improves system stability and protection against newly identified vulnerabilities.', 'Includes the latest platform security content.'], source: 'https://support.apple.com/100100' },
+      watchOS: { title: 'watchOS 26.5', date: 'Released 11 May 2026', items: ['Performance improvements across Apple Watch.', 'Bug fixes and stability improvements.', 'Security updates for supported models.'], source: 'https://support.apple.com/100100' },
+      tvOS: { title: 'tvOS 26.5', date: 'Released 11 May 2026', items: ['Performance improvements for Apple TV.', 'Bug fixes and stability improvements.', 'Security updates for supported Apple TV models.'], source: 'https://support.apple.com/100100' },
+      visionOS: { title: 'visionOS 26.5', date: 'Released 11 May 2026', items: ['Performance improvements for Apple Vision Pro.', 'Bug fixes and stability improvements.', 'Security updates for supported devices.'], source: 'https://support.apple.com/100100' },
+      HomePod: { title: 'HomePod software 26.5', date: 'Released 11 May 2026', items: ['Performance improvements for HomePod and HomePod mini.', 'Bug fixes and stability improvements.'], source: 'https://support.apple.com/en-us/108045' },
+      Safari: { title: 'Safari 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for Safari on macOS Sonoma and macOS Sequoia.', 'Improves protection when processing web content.'], source: 'https://support.apple.com/100100' },
+      Xcode: { title: 'Xcode 26.6', date: 'Released 25 Jun 2026', items: ['Latest stable Xcode release for Apple platform development.', 'Includes updated SDKs, tools, and developer workflow improvements.', 'Supports building and testing for the latest Apple operating systems.'], source: 'https://developer.apple.com/news/releases/?id=06252026a' }
+    };
+    function update() {
+      const query = search.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const matchesFilter = activeFilter === 'all' || card.dataset.type === activeFilter;
+        const matchesSearch = !query || card.dataset.name.toLowerCase().includes(query);
+        card.style.display = matchesFilter && matchesSearch ? '' : 'none';
+        if (matchesFilter && matchesSearch) visible++;
+      });
+      empty.style.display = visible ? 'none' : 'block';
+    }
+    tabs.forEach(tab => tab.addEventListener('click', () => { tabs.forEach(item => item.classList.remove('active')); tab.classList.add('active'); activeFilter = tab.dataset.filter; update(); }));
+    search.addEventListener('input', update);
+    function openChangelog(card) {
+      const release = changelogs[card.dataset.name];
+      if (!release) return;
+      drawerTitle.textContent = release.title;
+      drawerDate.textContent = release.date;
+      changelogList.innerHTML = release.items.map(item => `<li>${item}</li>`).join('');
+      drawerSource.href = release.source;
+      drawer.classList.add('open');
+      backdrop.classList.add('open');
+      drawer.setAttribute('aria-hidden', 'false');
+    }
+    function closeChangelog() {
+      drawer.classList.remove('open');
+      backdrop.classList.remove('open');
+      drawer.setAttribute('aria-hidden', 'true');
+    }
+    cards.forEach(card => {
+      card.tabIndex = 0;
+      card.addEventListener('click', () => openChangelog(card));
+      card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openChangelog(card); } });
+    });
+    document.querySelector('#drawerClose').addEventListener('click', closeChangelog);
+    backdrop.addEventListener('click', closeChangelog);
+    document.addEventListener('keydown', event => { if (event.key === 'Escape') closeChangelog(); });
+  </script>
+</body>
+</html>
