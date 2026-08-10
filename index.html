@@ -139,7 +139,7 @@
         <button class="beta-switch" id="betaToggle" type="button" role="switch" aria-checked="true" aria-controls="betaSection">
           <span>Betas</span><span class="switch-track" aria-hidden="true"></span>
         </button>
-        <div class="status"><i class="pulse"></i> Updated 17 Jul 2026</div>
+        <div class="status"><i class="pulse"></i> <span id="lastUpdated">Updated 17 Jul 2026</span></div>
       </div>
     </header>
 
@@ -158,15 +158,15 @@
           <label class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4-4"></path></svg><input id="search" type="search" placeholder="Search systems…" aria-label="Search systems"></label>
         </div>
         <div class="feature-grid">
-          <article class="card dark" data-type="mobile" data-name="iOS">
+          <article class="card dark" data-type="mobile" data-name="iOS" data-release-product="ios">
             <div class="kicker"><span class="os-icon">iOS</span> iPhone <span class="meta new">Latest</span></div>
             <div class="version">iOS 26.5.2</div><div class="release">The newest generation of iPhone software</div>
           </article>
-          <article class="card blue" data-type="desktop" data-name="macOS Tahoe">
+          <article class="card blue" data-type="desktop" data-name="macOS Tahoe" data-release-product="macos">
             <div class="kicker"><span class="os-icon">⌘</span> Mac <span class="meta new">Latest</span></div>
             <div class="version">26.5.2</div><div class="release">macOS Tahoe · 29 Jun 2026</div>
           </article>
-          <article class="card" data-type="mobile" data-name="iPadOS">
+          <article class="card" data-type="mobile" data-name="iPadOS" data-release-product="ipados">
             <div class="kicker"><span class="os-icon">iPad</span> iPad <span class="meta">26.5.2</span></div>
             <div class="version">iPadOS 26.5.2</div><div class="release">Version 26.5.2 · 29 Jun 2026</div>
           </article>
@@ -181,13 +181,13 @@
         <div id="betaContent">
           <div class="beta-slider" role="region" aria-label="Apple beta releases">
             <div class="beta-track" id="betaTrack" tabindex="0">
-              <article class="beta-card" data-name="iOS 27 Developer Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Dev beta</span></div><div class="beta-version">iOS 27</div><p>Developer beta · Next major release</p></article>
-              <article class="beta-card" data-name="iOS 27 Public Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Public beta</span></div><div class="beta-version">iOS 27</div><p>Public beta · Next major release</p></article>
-              <article class="beta-card" data-name="iOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">iOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
-              <article class="beta-card" data-name="iPadOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iPad</span> iPad</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">iPadOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
-              <article class="beta-card" data-name="macOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">⌘</span> Mac</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">Tahoe 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
-              <article class="beta-card" data-name="watchOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">⌁</span> Apple Watch</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">watchOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
-              <article class="beta-card" data-name="visionOS Beta" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">◉</span> Vision Pro</span><span class="beta-tag">Beta 3</span></div><div class="beta-version">visionOS 26.6</div><p>Developer beta · Seeded 15 Jul 2026</p></article>
+              <article class="beta-card" data-name="iOS Beta" data-release-beta="ios" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iOS</span> iPhone</span><span class="beta-tag">Beta</span></div><div class="beta-version">iOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="iPadOS Beta" data-release-beta="ipados" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">iPad</span> iPad</span><span class="beta-tag">Beta</span></div><div class="beta-version">iPadOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="macOS Beta" data-release-beta="macos" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">⌘</span> Mac</span><span class="beta-tag">Beta</span></div><div class="beta-version">macOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="tvOS Beta" data-release-beta="tvos" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">TV</span> Apple TV</span><span class="beta-tag">Beta</span></div><div class="beta-version">tvOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="watchOS Beta" data-release-beta="watchos" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">⌁</span> Apple Watch</span><span class="beta-tag">Beta</span></div><div class="beta-version">watchOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="visionOS Beta" data-release-beta="visionos" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">◉</span> Vision Pro</span><span class="beta-tag">Beta</span></div><div class="beta-version">visionOS 27</div><p>Developer beta</p></article>
+              <article class="beta-card" data-name="Xcode Beta" data-release-beta="xcode" tabindex="0"><div class="beta-top"><span class="beta-label"><span class="os-icon">✕</span> Developer</span><span class="beta-tag">Beta</span></div><div class="beta-version">Xcode 27</div><p>Developer beta</p></article>
             </div>
           </div>
           <div class="slider-progress" id="betaProgress" aria-hidden="true"><i class="active"></i><i></i><i></i><i></i></div>
@@ -197,17 +197,17 @@
       <section id="all-systems" aria-label="All Apple systems">
         <div class="section-head"><h2>All systems</h2><p>Stable releases · Betas excluded.</p></div>
         <div class="system-grid" id="systemGrid">
-          <article class="system-card" data-type="other" data-name="watchOS"><div class="system-top"><div class="system-name"><span class="os-icon">⌁</span> watchOS</div><span class="chip">Watch</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
-          <article class="system-card" data-type="other" data-name="tvOS"><div class="system-top"><div class="system-name"><span class="os-icon">TV</span> tvOS</div><span class="chip">TV</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
-          <article class="system-card" data-type="other" data-name="visionOS"><div class="system-top"><div class="system-name"><span class="os-icon">◉</span> visionOS</div><span class="chip">Vision Pro</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
-          <article class="system-card" data-type="other" data-name="HomePod"><div class="system-top"><div class="system-name"><span class="os-icon">♫</span> HomePod</div><span class="chip">Speaker</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
-          <article class="system-card" data-type="desktop" data-name="Safari"><div class="system-top"><div class="system-name"><span class="os-icon">◌</span> Safari</div><span class="chip">Browser</span></div><div class="system-version">26.5.2</div><div class="system-bottom"><span>29 Jun 2026</span><span class="arrow">↗</span></div></article>
-          <article class="system-card" data-type="other" data-name="Xcode"><div class="system-top"><div class="system-name"><span class="os-icon">✕</span> Xcode</div><span class="chip">Developer</span></div><div class="system-version">26.6</div><div class="system-bottom"><span>25 Jun 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="watchOS" data-release-product="watchos"><div class="system-top"><div class="system-name"><span class="os-icon">⌁</span> watchOS</div><span class="chip">Watch</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="tvOS" data-release-product="tvos"><div class="system-top"><div class="system-name"><span class="os-icon">TV</span> tvOS</div><span class="chip">TV</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="visionOS" data-release-product="visionos"><div class="system-top"><div class="system-name"><span class="os-icon">◉</span> visionOS</div><span class="chip">Vision Pro</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="HomePod" data-release-product="homepod"><div class="system-top"><div class="system-name"><span class="os-icon">♫</span> HomePod</div><span class="chip">Speaker</span></div><div class="system-version">26.5</div><div class="system-bottom"><span>11 May 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="desktop" data-name="Safari" data-release-product="safari"><div class="system-top"><div class="system-name"><span class="os-icon">◌</span> Safari</div><span class="chip">Browser</span></div><div class="system-version">26.5.2</div><div class="system-bottom"><span>29 Jun 2026</span><span class="arrow">↗</span></div></article>
+          <article class="system-card" data-type="other" data-name="Xcode" data-release-product="xcode"><div class="system-top"><div class="system-name"><span class="os-icon">✕</span> Xcode</div><span class="chip">Developer</span></div><div class="system-version">26.6</div><div class="system-bottom"><span>25 Jun 2026</span><span class="arrow">↗</span></div></article>
         </div>
         <div class="empty" id="empty">No systems match that search.</div>
       </section>
     </main>
-    <footer><span>Made for the curious.</span><span>Verified 17 Jul 2026 · <a href="https://support.apple.com/100100" target="_blank" rel="noreferrer">Apple security releases ↗</a></span></footer>
+    <footer><span>Made for the curious.</span><span><span id="verifiedDate">Verified 17 Jul 2026</span> · <a href="https://support.apple.com/100100" target="_blank" rel="noreferrer">Apple security releases ↗</a></span></footer>
   </div>
   <div class="drawer-backdrop" id="drawerBackdrop"></div>
   <aside class="drawer" id="changelogDrawer" aria-hidden="true" aria-labelledby="drawerTitle">
@@ -219,6 +219,7 @@
     <ul class="changelog-list" id="changelogList"></ul>
     <a class="drawer-source" id="drawerSource" href="https://support.apple.com/100100" target="_blank" rel="noreferrer">Read Apple's full notes ↗</a>
   </aside>
+  <script src="data/releases.js"></script>
   <script>
     const tabs = document.querySelectorAll('.tab');
     const cards = [...document.querySelectorAll('[data-type]')];
@@ -241,14 +242,52 @@
       HomePod: { title: 'HomePod software 26.5', date: 'Released 11 May 2026', items: ['Performance improvements for HomePod and HomePod mini.', 'Bug fixes and stability improvements.'], source: 'https://support.apple.com/en-us/108045' },
       Safari: { title: 'Safari 26.5.2', date: 'Released 29 Jun 2026', items: ['Security fixes for Safari on macOS Sonoma and macOS Sequoia.', 'Improves protection when processing web content.'], source: 'https://support.apple.com/100100' },
       Xcode: { title: 'Xcode 26.6', date: 'Released 25 Jun 2026', items: ['Latest stable Xcode release for Apple platform development.', 'Includes updated SDKs, tools, and developer workflow improvements.', 'Supports building and testing for the latest Apple operating systems.'], source: 'https://developer.apple.com/news/releases/?id=06252026a' },
-      'iOS 27 Developer Beta': { title: 'iOS 27 developer beta', date: 'Next major release', items: ['Pre-release software for registered developers.', 'Includes early iOS 27 features and platform changes.', 'Install only on an iPhone dedicated to testing.'], source: 'https://developer.apple.com/download/' },
-      'iOS 27 Public Beta': { title: 'iOS 27 public beta', date: 'Next major release', items: ['Pre-release software available through Apple Beta Software Program.', 'Includes early iOS 27 features and platform changes.', 'Back up your iPhone before installing beta software.'], source: 'https://beta.apple.com/' },
-      'iOS Beta': { title: 'iOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes the latest iPhone platform changes and fixes.', 'Install only on devices dedicated to testing.'], source: 'https://developer.apple.com/download/' },
-      'iPadOS Beta': { title: 'iPadOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes the latest iPad platform changes and fixes.', 'Install only on devices dedicated to testing.'], source: 'https://developer.apple.com/download/' },
-      'macOS Beta': { title: 'macOS Tahoe 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Brings the newest Mac platform improvements for testing.', 'Back up your Mac before installing beta software.'], source: 'https://developer.apple.com/download/' },
-      'watchOS Beta': { title: 'watchOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes Apple Watch platform fixes and refinements.', 'Apple Watch beta software cannot be downgraded.'], source: 'https://developer.apple.com/download/' },
-      'visionOS Beta': { title: 'visionOS 26.6 beta 3', date: 'Seeded 15 Jul 2026', items: ['Pre-release software for registered developers.', 'Includes Vision Pro platform fixes and refinements.', 'Install beta software only on a device used for testing.'], source: 'https://developer.apple.com/download/' }
+      'iOS Beta': {},
+      'iPadOS Beta': {},
+      'macOS Beta': {},
+      'tvOS Beta': {},
+      'watchOS Beta': {},
+      'visionOS Beta': {},
+      'Xcode Beta': {}
     };
+    function applyReleaseData() {
+      const data = window.APPLE_RELEASES;
+      if (!data) return;
+      document.querySelector('#lastUpdated').textContent = `Updated ${data.updated}`;
+      document.querySelector('#verifiedDate').textContent = `Verified ${data.updated}`;
+      Object.entries(data.stable).forEach(([product, release]) => {
+        const card = document.querySelector(`[data-release-product="${product}"]`);
+        if (!card) return;
+        const version = card.querySelector('.version, .system-version');
+        const date = card.querySelector('.system-bottom span:first-child');
+        const detail = card.querySelector('.release');
+        const meta = card.querySelector('.meta:not(.new)');
+        version.textContent = card.classList.contains('system-card') || product === 'macos' ? release.version : release.title;
+        if (date) date.textContent = release.date;
+        if (detail) detail.textContent = product === 'macos' ? `${release.title.replace(` ${release.version}`, '')} · ${release.date}` : `Released ${release.date}`;
+        if (meta) meta.textContent = release.version;
+        changelogs[card.dataset.name] = {
+          title: release.title,
+          date: `Released ${release.date}`,
+          items: [`Latest official ${release.title} release from Apple.`, 'Review Apple’s release notes for security fixes and platform details.'],
+          source: release.source
+        };
+      });
+      Object.entries(data.betas).forEach(([product, release]) => {
+        const card = document.querySelector(`[data-release-beta="${product}"]`);
+        if (!card) return;
+        card.querySelector('.beta-version').textContent = release.title;
+        card.querySelector('.beta-tag').textContent = release.beta;
+        card.querySelector('p').textContent = `Developer beta · Seeded ${release.date}`;
+        changelogs[card.dataset.name] = {
+          title: `${release.title} ${release.beta.toLowerCase()}`,
+          date: `Seeded ${release.date}`,
+          items: ['Pre-release software for registered developers.', 'Includes the latest platform changes and fixes.', 'Install only on devices dedicated to testing.'],
+          source: release.source
+        };
+      });
+    }
+    applyReleaseData();
     function update() {
       const query = search.value.trim().toLowerCase();
       let visible = 0;
