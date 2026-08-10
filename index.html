@@ -31,8 +31,17 @@
     .nav a { text-decoration:none; color:inherit; transition:color .2s; }
     .nav a:hover, .nav a.active { color:var(--ink); }
     .nav .active { font-weight:600; }
+    .topbar-actions { display:flex; align-items:center; gap:18px; }
     .status { display:flex; align-items:center; gap: 8px; font-size: 12px; color:var(--muted); }
     .pulse { width:7px; height:7px; background:var(--green); border-radius:50%; box-shadow:0 0 0 4px rgba(40,180,122,.12); }
+    .beta-switch { display:inline-flex; align-items:center; gap:9px; padding:6px 7px 6px 11px; border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--muted); font-size:12px; font-weight:600; transition:border-color .2s, color .2s, box-shadow .2s; }
+    .beta-switch:hover { color:var(--ink); border-color:#c9c9cf; }
+    .beta-switch:focus-visible { outline:0; box-shadow:0 0 0 3px rgba(0,113,227,.16); border-color:#9bc7f3; }
+    .switch-track { position:relative; width:34px; height:20px; border-radius:999px; background:#d2d2d7; transition:background .25s; }
+    .switch-track:after { content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.22); transition:transform .25s cubic-bezier(.2,.8,.2,1); }
+    .beta-switch[aria-checked="true"] { color:var(--ink); }
+    .beta-switch[aria-checked="true"] .switch-track { background:var(--purple); }
+    .beta-switch[aria-checked="true"] .switch-track:after { transform:translateX(14px); }
     .hero { padding: 82px 0 56px; max-width: 780px; }
     .eyebrow { color:var(--blue); text-transform:uppercase; letter-spacing:.14em; font-size:11px; font-weight:700; margin-bottom:20px; }
     h1 { font-size: clamp(48px, 7vw, 86px); line-height:.96; letter-spacing:-.075em; margin:0 0 25px; font-weight:700; }
@@ -84,9 +93,6 @@
     .beta-head h2 { margin:0; font-size:24px; letter-spacing:-.055em; }
     .beta-head p { margin:7px 0 0; color:var(--muted); font-size:12px; }
     .slider-controls { display:flex; gap:8px; }
-    .beta-actions { display:flex; align-items:center; gap:14px; }
-    .beta-toggle { border:0; padding:0; background:transparent; color:var(--muted); font-size:12px; }
-    .beta-toggle:hover { color:var(--ink); text-decoration:underline; }
     .slider-button { display:grid; place-items:center; width:34px; height:34px; padding:0; border:1px solid var(--line); border-radius:50%; color:var(--ink); background:#fff; font-size:19px; line-height:1; transition:background .2s, color .2s, border-color .2s; }
     .slider-button:hover:not(:disabled) { background:var(--ink); color:#fff; border-color:var(--ink); }
     .slider-button:disabled { cursor:not-allowed; color:#b5b5bb; background:#fafafa; }
@@ -121,7 +127,7 @@
     footer { margin-top:78px; padding-top:20px; border-top:1px solid var(--line); display:flex; justify-content:space-between; color:#9b9ba1; font-size:11px; }
     footer a { color:inherit; text-decoration:none; }
     @media(max-width:850px) { .page{padding:0 22px 55px}.nav{gap:15px}.nav a:nth-child(2){display:none}.feature-grid{grid-template-columns:1fr 1fr}.feature-grid .card:first-child{grid-column:span 2}.system-grid{grid-template-columns:1fr 1fr}.beta-card{flex-basis:calc((100% - 14px) / 2)}.hero{padding:65px 0 45px} }
-    @media(max-width:560px) { .topbar{height:64px}.status{display:none}.nav{margin-left:auto}.toolbar{align-items:flex-start; flex-direction:column}.search{width:100%}.feature-grid,.system-grid{grid-template-columns:1fr}.feature-grid .card:first-child{grid-column:auto}.card{min-height:190px}.version{font-size:34px}.section-head{padding-top:40px;display:block}.section-head p{margin-top:8px}.beta-section{padding-top:42px}.beta-head{align-items:flex-start}.beta-card{flex-basis:88%}.beta-version{margin-top:32px}footer{display:block;line-height:1.8} }
+    @media(max-width:560px) { .topbar{height:64px}.status{display:none}.nav{margin-left:auto}.topbar-actions{gap:0}.beta-switch{padding-left:9px}.toolbar{align-items:flex-start; flex-direction:column}.search{width:100%}.feature-grid,.system-grid{grid-template-columns:1fr}.feature-grid .card:first-child{grid-column:auto}.card{min-height:190px}.version{font-size:34px}.section-head{padding-top:40px;display:block}.section-head p{margin-top:8px}.beta-section{padding-top:42px}.beta-head{align-items:flex-start}.beta-card{flex-basis:88%}.beta-version{margin-top:32px}footer{display:block;line-height:1.8} }
   </style>
 </head>
 <body>
@@ -129,7 +135,12 @@
     <header class="topbar">
       <div class="brand"><i class="brand-mark"></i><span>version</span></div>
       <nav class="nav" aria-label="Main navigation"><a href="#latest" class="active">Latest</a><a href="#all-systems">All systems</a><a href="#about">About</a></nav>
-      <div class="status"><i class="pulse"></i> Updated 17 Jul 2026</div>
+      <div class="topbar-actions">
+        <button class="beta-switch" id="betaToggle" type="button" role="switch" aria-checked="true" aria-controls="betaSection">
+          <span>Betas</span><span class="switch-track" aria-hidden="true"></span>
+        </button>
+        <div class="status"><i class="pulse"></i> Updated 17 Jul 2026</div>
+      </div>
     </header>
 
     <main>
@@ -162,10 +173,10 @@
         </div>
       </section>
 
-      <section class="beta-section" aria-labelledby="betaHeading">
+      <section class="beta-section" id="betaSection" aria-labelledby="betaHeading">
         <div class="beta-head">
           <div><h2 id="betaHeading">In beta</h2><p>Preview the next releases from Apple.</p></div>
-          <div class="beta-actions"><button class="beta-toggle" id="betaToggle" type="button" aria-expanded="true" aria-controls="betaContent betaControls">Hide betas</button><div class="slider-controls" id="betaControls" aria-label="Beta release slider controls"><button class="slider-button" id="betaPrevious" type="button" aria-label="Previous beta releases">←</button><button class="slider-button" id="betaNext" type="button" aria-label="Next beta releases">→</button></div></div>
+          <div class="slider-controls" id="betaControls" aria-label="Beta release slider controls"><button class="slider-button" id="betaPrevious" type="button" aria-label="Previous beta releases">←</button><button class="slider-button" id="betaNext" type="button" aria-label="Next beta releases">→</button></div>
         </div>
         <div id="betaContent">
           <div class="beta-slider" role="region" aria-label="Apple beta releases">
@@ -272,8 +283,7 @@
       card.addEventListener('click', () => openChangelog(card));
       card.addEventListener('keydown', event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openChangelog(card); } });
     });
-    const betaContent = document.querySelector('#betaContent');
-    const betaControls = document.querySelector('#betaControls');
+    const betaSection = document.querySelector('#betaSection');
     const betaToggle = document.querySelector('#betaToggle');
     const betaTrack = document.querySelector('#betaTrack');
     const betaCards = [...document.querySelectorAll('.beta-card')];
@@ -289,11 +299,9 @@
     }
     function moveBetaSlider(direction) { betaTrack.scrollBy({ left: direction * Math.max(betaTrack.clientWidth * .86, 280), behavior: 'smooth' }); }
     betaToggle.addEventListener('click', () => {
-      const showBetas = betaContent.hidden;
-      betaContent.hidden = !showBetas;
-      betaControls.hidden = !showBetas;
-      betaToggle.textContent = showBetas ? 'Hide betas' : 'Show betas';
-      betaToggle.setAttribute('aria-expanded', String(showBetas));
+      const showBetas = betaSection.hidden;
+      betaSection.hidden = !showBetas;
+      betaToggle.setAttribute('aria-checked', String(showBetas));
       if (showBetas) updateBetaSlider();
     });
     betaPrevious.addEventListener('click', () => moveBetaSlider(-1));
