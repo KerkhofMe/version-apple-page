@@ -8,6 +8,7 @@ An elegant, Apple-inspired interface for tracking Apple software versions and re
 - 🎨 Fully responsive layout that works on all devices
 - 🔍 Search and filter functionality for easy navigation
 - 📝 Interactive changelog drawer for release notes
+- 🔄 Daily release checks from official Apple sources
 - ✨ Smooth animations and transitions
 - ♿ Accessible with proper ARIA labels and keyboard navigation
 
@@ -25,6 +26,23 @@ View the live page: [Open index.html](index.html)
 ## Usage
 
 Simply open `index.html` in your web browser to view the tracker.
+
+## Automated release checks
+
+The `Check Apple releases` GitHub Actions workflow runs every day at 06:17 UTC and can also be started manually. It checks:
+
+- [Apple security releases](https://support.apple.com/en-us/100100) for stable operating systems and Safari
+- [Apple Developer releases](https://developer.apple.com/news/releases/rss/releases.rss) for Xcode and developer betas
+- [HomePod software updates](https://support.apple.com/en-us/108045) for HomePod
+
+When `data/releases.js` changes, the workflow opens or updates an `automation/apple-release-update` pull request instead of publishing unreviewed data. The repository must allow GitHub Actions to create pull requests under **Settings > Actions > General > Workflow permissions**.
+
+Run the checker locally with:
+
+```sh
+python scripts/check_releases.py
+python -m unittest discover -s tests
+```
 
 ## Customization
 
